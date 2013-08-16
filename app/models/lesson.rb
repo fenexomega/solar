@@ -54,7 +54,7 @@ class Lesson < ActiveRecord::Base
     else
       #se for vídeo do youtube que não esteja como embeded, altera link
       return (address.include?("youtube") and !address.include?("embed"))  ? 'http://www.youtube.com/embed/'+address.split("v=")[1] : address 
-    end
+    end 
   end
 
   def can_destroy?
