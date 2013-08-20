@@ -3,16 +3,28 @@ require 'test_helper'
 class LessonModuleTest < ActiveSupport::TestCase
 
   test 'deve ter nome preenchido' do 
-    lesson_module = LessonModule.create(:allocation_tag_id => allocation_tags(:al1).id)
+    lesson_module = LessonModule.create()
 
     assert lesson_module.invalid?
     assert_equal lesson_module.errors[:name].first, I18n.t(:blank, :scope => [:activerecord, :errors, :messages])
   end
 
-  test 'deve ter nome unico para uma allocation_tag_id' do 
-    lesson_module1 = LessonModule.create(:name => "Modulo 01", :allocation_tag_id => allocation_tags(:al1).id)
-    lesson_module2 = LessonModule.create(:name => "Modulo 01", :allocation_tag_id => allocation_tags(:al2).id)
-    lesson_module3 = LessonModule.create(:name => "Modulo 01", :allocation_tag_id => allocation_tags(:al1).id)
+  test 'deve ter nome unico para uma allocation_tag' do 
+    lesson_module1 = LessonModule.new(
+      name: "Modulo 01", 
+      academic_allocations_attributes: [
+        {allocation_tag_id: allocation_tags(:al1).id}])
+
+    lesson_module2 = LessonModule.new(
+      name: "Modulo 01", 
+      academic_allocations_attributes: [
+        {allocation_tag_id: allocation_tags(:al2).id}])
+    
+    lesson_module3 = LessonModule.new(
+      name: "Modulo 01", 
+      academic_allocations_attributes: [
+        {allocation_tag_id: allocation_tags(:al1).id}])
+    
 
     assert lesson_module2.valid?
     assert lesson_module3.invalid?
