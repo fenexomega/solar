@@ -12,7 +12,7 @@ class CurriculumUnitsController < ApplicationController
   def home
     allocation_tags   = AllocationTag.find(@allocation_tag_id).related({all: true, objects: true}).map(&:id)
     @messages         = Message.user_inbox(current_user.id, only_unread = true)
-    @lessons          = Lesson.to_open(allocation_tags.join(', '))
+    @lessons          = Lesson.to_open(allocation_tags)
     @discussion_posts = list_portlet_discussion_posts(allocation_tags.join(', '))
 
     schedules_events  = Schedule.events(allocation_tags)

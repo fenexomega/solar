@@ -241,7 +241,7 @@ class LessonsController < ApplicationController
 
     def lessons_to_open(allocation_tags_ids = nil)
       allocation_tags_ids = allocation_tags_ids || AllocationTag.find_related_ids(active_tab[:url][:allocation_tag_id])
-      Lesson.to_open(allocation_tags_ids.join(", "))
+      Lesson.to_open(allocation_tags_ids)
     end
 
     # define as variáveis e retorna se as aulas são válidas ou não para download
