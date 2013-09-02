@@ -43,11 +43,7 @@ Solar::Application.routes.draw do
       get :informations
       get :home
     end
-    resources :groups, only: [:index] do
-      collection do 
-        get :mobilis_list
-      end
-    end
+    resources :groups, only: [:index]
   end
 
   ## groups/:id/discussions
@@ -182,8 +178,6 @@ Solar::Application.routes.draw do
     end
   end
 
-  resources :chat_rooms
-
   resources :schedules, only: [:index] do
     get :list, on: :collection
   end
@@ -243,6 +237,16 @@ Solar::Application.routes.draw do
   get "/media/assignment/comments/:file.:extension", to: "access_control#assignment"
   get "/media/assignment/public_area/:file.:extension", to: "access_control#assignment"
   get "/media/assignment/enunciation/:file.:extension", to: "access_control#assignment"
+
+  # IM
+  resources :instant_messages, only: [] do
+    collection do
+      post :register_user
+      put :change_status
+      get :login_user
+      get :logout_user
+    end
+  end
 
   root to: 'devise/sessions#new'
 

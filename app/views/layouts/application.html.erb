@@ -177,11 +177,24 @@
             <%= raw render_tabs %>
           </ul>
           <ul id="mysolar_extras">
+            <li id="mysolar_im">
+              <button type="button" class="btn" data-tooltip="Bate-papo" data-dropdown="#im-dropdown" name="Bate-papo"><i class="icon-earth"></i><i class="icon-arrow-down-3"></i></button>
+            </li>
             <li id="mysolar_languages">
               <button type="button" class="btn" data-tooltip="Idiomas" data-dropdown="#language-dropdown" name="Idiomas"><i class="icon-earth"></i><i class="icon-arrow-down-3"></i></button>
             </li>
             <li id="mysolar_suggestions"><button class="btn btn_main" onclick="javascript:window.open('https://docs.google.com/a/virtual.ufc.br/spreadsheet/viewform?formkey=dFpzVU4xa1FMT3ZldjhDS014NFMtaXc6MQ')">Sugestões para o Solar 2.0</button></li>
           </ul>
+            <div id="im-dropdown" class="dropdown dropdown-tip">
+            <ul class="dropdown-menu">
+              <li><%= link_to "Disponível", controller: "instant_messages", action: "login_user"%></li>
+              <li><%= link_to "Ocupado", url_for(:instant_messages => '') %></li>
+              <li><%= link_to "Ausente", url_for(:instant_messages => '') %></li>
+              <li><%= link_to "Offline", controller: "instant_messages", action: "logout_user"%></li>
+              <li><%= link_to "Solicitação de Contato", url_for(:instant_messages => '') %></li>
+              <li><%= link_to "Configurações", url_for(:instant_messages => '') %></li>
+            </ul>
+          </div>
           <div id="language-dropdown" class="dropdown dropdown-tip">
             <ul class="dropdown-menu">
               <li><%= link_to "English (USA)", url_for(:locale => 'en-US') %></li>
