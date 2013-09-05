@@ -280,11 +280,6 @@
         attachment: Arquivo
         attachment_content_type: Tipo do arquivo
         attachment_file_size: "Arquivo muito grande. O tamanho máximo deve ser de até 5MB."
-      chat_room:
-        title: Título
-        description: Descrição
-        start_hour: Hora de início
-        end_hour: Hora de término
 
     errors:
       template:
@@ -1552,16 +1547,6 @@
     error:
       must_select_something: Um ou mais itens devem ser selecionados
 
-  chat_rooms:
-    success:
-      created: Chat criado com sucesso.
-      updated: Chat atualizado com sucesso.
-      deleted: Chat deletado com sucesso.
-    error:
-      created: Não foi possível criar chat.
-      updated: Não foi possível atualizar chat.
-      deleted: Não foi possível deletar chat.
-
   #Facebook
 
   facebook:
@@ -1575,8 +1560,6 @@
     settings: Configurações
 
   messages:
-    message_header_to:
-      attach: "Anexar: "
     show:
       to: "Para: "
       from: "De: "

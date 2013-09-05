@@ -22,7 +22,7 @@ class AssignmentsController < ApplicationController
     @groups     = AllocationTag.find(@allocation_tags_ids).map(&:groups).flatten.uniq
     @assignment = Assignment.new
     @assignment.build_schedule(start_date: Date.current, end_date: Date.current)
-    @assignment.enunciation_files.build
+    @assignment.assignment_enunciation_files.build
   end
 
   ##
@@ -53,10 +53,7 @@ class AssignmentsController < ApplicationController
     authorize! :update, Assignment, on: @allocation_tags_ids = params[:allocation_tags_ids].uniq
 
     @assignment = Assignment.find(params[:id])
-    # @assignment.enunciation_files.build
-
-    @enunciation_files = @assignment.enunciation_files.compact
-
+    @assignment.assignment_enunciation_files.build
     @groups = @assignment.groups
     @schedule = @assignment.schedule
   end
@@ -78,8 +75,7 @@ class AssignmentsController < ApplicationController
       render json: {success: false, alert: t(:not_associated)}, status: :unprocessable_entity
     rescue
       @groups = AllocationTag.find(@allocation_tags_ids).map(&:groups).flatten.uniq
-      @assignment.enunciation_files.build unless @assignment.enunciation_files
-
+      @assignment.assignment_enunciation_files.build
       render :new
     end
   end
@@ -94,15 +90,8 @@ class AssignmentsController < ApplicationController
       render json: {success: true, notice: t(:updated, scope: [:assignments, :success])}
     rescue ActiveRecord::AssociationTypeMismatch
       render json: {success: false, alert: t(:not_associated)}, status: :unprocessable_entity
-    rescue Exception => error
-
-      # raise "#{error}"
-
-      # render json: {success: false, alert: t(:updated, scope: [:assignments, :error])}, status: :unprocessable_entity
-      @groups = AllocationTag.find(@allocation_tags_ids).map(&:groups).flatten.uniq
-      @assignment.enunciation_files.build
-
-      render :new
+    rescue
+      render json: {success: false, alert: t(:updated, scope: [:assignments, :error])}, status: :unprocessable_entity
     end
   end
 

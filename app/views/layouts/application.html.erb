@@ -16,6 +16,24 @@
     <![endif]-->
     <%= csrf_meta_tag %>
 
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/utilities/utilities.js"></script> 
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/container/container-min.js"></script> 
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/button/button-min.js"></script> 
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/selector/selector-beta-min.js"></script> 
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/resize/resize-beta-min.js"></script> 
+    <script type="text/javascript" src="http://yui.yahooapis.com/2.5.2/build/layout/layout-beta-min.js"></script> 
+    
+    <%= javascript_include_tag "chat/Orbited" %>
+    <script>TCPSocket = Orbited.TCPSocket</script>
+    <script>document.domain = document.domain;</script> 
+
+    <%= javascript_include_tag "chat/protocols/xmpp" %>
+
+    <%= javascript_include_tag "chat/chat" %>
+    <%= javascript_include_tag "chat/userlist" %>
+
+    <%= javascript_include_tag "chat/xmpp" %>
+
     <script type="text/javascript">
       /**
        * Google Analytics
@@ -187,12 +205,13 @@
           </ul>
             <div id="im-dropdown" class="dropdown dropdown-tip">
             <ul class="dropdown-menu">
-              <li><%= link_to "Disponível", controller: "instant_messages", action: "login_user"%></li>
-              <li><%= link_to "Ocupado", url_for(:instant_messages => '') %></li>
-              <li><%= link_to "Ausente", url_for(:instant_messages => '') %></li>
-              <li><%= link_to "Offline", controller: "instant_messages", action: "logout_user"%></li>
-              <li><%= link_to "Solicitação de Contato", url_for(:instant_messages => '') %></li>
-              <li><%= link_to "Configurações", url_for(:instant_messages => '') %></li>
+              <li><%= link_to "Disponível", login_user_instant_messages_path %></li>
+              <li><%= link_to "Ocupado", change_status_instant_messages_path(status: :dnd), method: :put %></li>
+              <li><%= link_to "Ausente", change_status_instant_messages_path(status: :away), method: :put %></li>
+              <li><%= link_to "Offline", logout_user_instant_messages_path %></li>
+
+              <li><%= link_to "Solicitação de Contato", "#" %></li>
+              <li><%= link_to "Configurações", "#" %></li>
             </ul>
           </div>
           <div id="language-dropdown" class="dropdown dropdown-tip">

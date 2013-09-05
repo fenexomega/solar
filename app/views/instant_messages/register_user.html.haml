@@ -1,0 +1,13 @@
+\view do IM
+
+.davi
+  = @davi
+
+
+:javascript
+
+  $(function(){
+    $.get("#{change_status_instant_message_index_path}", function(data){
+      console.log(data);
+    });
+  });

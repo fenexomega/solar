@@ -1,6 +1,7 @@
 class ChatParticipant < ActiveRecord::Base
-  belongs_to :chat_room
-  belongs_to :allocation, foreign_key: :allocation_id
+  # attr_accessible :title, :body
 
-  has_one :user, through: :allocation
+  belongs_to :chat_room
+  belongs_to :allocation
+
 end

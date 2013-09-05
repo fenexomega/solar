@@ -32,7 +32,7 @@ class CurriculumUnitsController < ApplicationController
         course_name = Course.find(params[:course_id]).name
         @curriculum_units = CurriculumUnit.where(name: course_name)
       else
-        @curriculum_units = CurriculumUnit.joins(:offers).where(curriculum_unit_type_id: @type.id).where(offers: {course_id: params[:course_id]}) if not(params[:course_id].blank?)
+        @curriculum_units = CurriculumUnit.joins(offers: :groups).where(curriculum_unit_type_id: @type.id).where(offers: {course_id: params[:course_id]}) if not(params[:course_id].blank?)
       end
 
       render json: { html: render_to_string(partial: 'select_curriculum_unit.html', locals: { curriculum_units: @curriculum_units.uniq! }) }
@@ -62,8 +62,8 @@ class CurriculumUnitsController < ApplicationController
     end
   end
 
-  # Mobilis
-  # GET /curriculum_units/:curriculum_unit_id/groups/mobilis_list.json
+  # SolarMobilis
+  # GET /curriculum_units/listando.json
   def mobilis_list
     @curriculum_units = CurriculumUnit.all_by_user(current_user).collect {|uc| {id: uc.id, code: uc.code, name: uc.name}}
     
